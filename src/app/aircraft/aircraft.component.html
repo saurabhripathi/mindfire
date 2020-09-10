@@ -1,0 +1,49 @@
+<p-table #tt [value]="rowsData" [columns]="headersData">
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <ng-container *ngFor="let col of columns">
+          <th
+            [pSortableColumn]="col.field"
+            [pSortableColumnDisabled]="col.field === 'paymentType'"
+          >
+            {{ col.header }}
+            <p-sortIcon
+              *ngIf="col.field !== 'paymentType'"
+              [field]="col.field"
+            ></p-sortIcon>
+          </th>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-veg let-columns="columns">
+      <tr>
+        <ng-container *ngFor="let col of columns">
+       
+          <td *ngIf="col.field !== 'preview'">
+            <div class="name">
+              <div class="full_name">
+                {{ veg[col.field] }}
+              </div>
+             
+            </div>
+          </td>
+          <td class="view_details" *ngIf="col.field == 'preview'">
+            <img
+              width="60px"
+              height="60px"
+              [src]="veg[col.field]"
+              class="thumbnail"
+              alt="Preview"
+            />
+          </td>
+        </ng-container>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage" let-columns>
+      <tr>
+        <td class="no-data-state" [attr.colspan]="columns.length">
+          No records found
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>

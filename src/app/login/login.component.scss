@@ -1,0 +1,55 @@
+.main-container{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    background-color: gray;
+    opacity: 0.5;
+    .container{  
+    border-radius: 2px;
+    background-color: white;
+    height: 300px;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    .user-details{
+        margin: 2em 0px -1em 0px;
+        display: flex;
+        align-items: end;
+        flex-direction: column;
+        position: relative;
+    input{
+        width: 70%;
+        padding: 10px;
+        text-align: center;
+        margin: auto;
+    };
+    .error-block{
+        display: flex;
+        width: 70%;
+        margin: auto;
+        p{
+            color: red
+        }
+    }
+    };
+    .save-container{
+        display: flex;
+        justify-content: center;
+        margin-top: 4em;
+        button{
+            padding: 0px 2em;
+        }
+    }
+    }
+
+}
+
+.user-details::before{
+    content: "*";
+    color: red;
+    position: absolute;
+    left: 42px;
+    top: 0px;
+}
+

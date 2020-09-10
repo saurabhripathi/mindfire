@@ -1,0 +1,25 @@
+<div class="main-container">
+  <div [formGroup] = "loginFg" class="container">
+    <div class="user-details">
+      <input formControlName = "userName" placeholder="Username" id="float-input" type="text" pInputText />
+      <div class = "error-block"  *ngIf = "loginFg.get('userName').invalid">
+       <p *ngIf = "loginFg.get('userName').dirty && loginFg.get('userName').errors['required']=== true">
+         {{errorMessage.userNameRequired}}
+       </p>
+      </div>
+    </div>
+
+    <div class="user-details">
+      <input formControlName = "password" placeholder="Password" type = "password" id="float-input" pInputText />
+      <div class = "error-block"  *ngIf = "loginFg.get('password').invalid">
+          <p *ngIf = "loginFg.get('password').dirty && loginFg.get('password').errors['required']=== true">
+            {{errorMessage.passwordRequired}}
+          </p>
+         </div>
+    </div>
+    <div class= "save-container">
+      <button pButton type="button" [disabled] = submitButtonStatusFn() (click) = "loginClicked()"
+       label="Login" ></button>
+    </div>
+  </div>
+</div>

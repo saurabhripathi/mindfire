@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="header">
+    <div [routerLink]="['/home', 'airports']">
+      Airport
+    </div>
+    <div [routerLink]="['/home', 'aircrafts']">
+      Aircraft
+    </div>
+    <div [routerLink]="['/home', 'transaction']">
+      Transaction 
+    </div>
+    <div [routerLink]="['/home', 'fuel-report']">
+      Report 
+    </div>
+
+  </div>
+  <div>
+      <router-outlet>
+
+      </router-outlet>
+  </div>
+</div>

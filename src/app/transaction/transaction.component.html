@@ -1,0 +1,131 @@
+<div class="add-button-container">
+  <button
+    class="add-button"
+    pButton
+    type="button"
+    label="Add Transaction"
+    (click)="addTransaction()"
+  ></button>
+</div>
+
+<p-table #tt [value]="rowsData" [columns]="headersData">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <ng-container *ngFor="let col of columns">
+        <th
+          [pSortableColumn]="col.field"
+          [pSortableColumnDisabled]="col.field === 'paymentType'"
+        >
+          {{ col.header }}
+          <p-sortIcon
+            *ngIf="col.field !== 'paymentType'"
+            [field]="col.field"
+          ></p-sortIcon>
+        </th>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-veg let-columns="columns">
+    <tr>
+      <ng-container *ngFor="let col of columns">
+        <td *ngIf="col.field !== 'preview'">
+          <div class="name">
+            <div class="full_name">
+              {{ veg[col.field] }}
+            </div>
+          </div>
+        </td>
+        <td class="view_details" *ngIf="col.field == 'preview'">
+          <img
+            width="60px"
+            height="60px"
+            [src]="veg[col.field]"
+            class="thumbnail"
+            alt="Preview"
+          />
+        </td>
+      </ng-container>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage" let-columns>
+    <tr>
+      <td class="no-data-state" [attr.colspan]="columns.length">
+        No transaction done yet. Please perform new transaction.
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-sidebar
+  [(visible)]="openTransaction"
+  position="right"
+  [style]="{ width: '60%' }"
+  [baseZIndex]="10000"
+>
+  <div class="add-transaction">
+    <div class="header">
+      Perform Transaction
+    </div>
+
+    <div class="main">
+      <div class="details">
+        <div class="label">
+          Transaction Type
+        </div>
+        <div class="field">
+          <p-dropdown
+            (onChange)="transactionTypeSelect($event)"
+            placeholder="Transaction Type"
+            [options]="transactionType"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="label">
+          Airport
+        </div>
+        <div class="field">
+          <p-dropdown
+            (onChange)="airportSelect($event)"
+            placeholder="Select Airport"
+            [options]="airportLists"
+          ></p-dropdown>
+        </div>
+      </div>
+
+      <div class="details" *ngIf = "transactionObject.transactionType === 'OUT'">
+            <div class="label">
+              Aircraft
+            </div>
+            <div class="field">
+              <p-dropdown
+                (onChange)="aircraftSelect($event)"
+                placeholder="Select Airport"
+                [options]="aircraftLists"
+              ></p-dropdown>
+            </div>
+          </div>
+
+      <div class="details">
+        <div class="label">
+          Quantity
+        </div>
+        <div class="field">
+          <p-inputNumber mode="decimal" [useGrouping] = false  (onBlur) = "quantityEntered($event)"></p-inputNumber>
+        </div>
+      </div>
+
+      <div class="save">
+        <button
+          [disabled] = saveButtonStatus()
+          pButton
+          (click) = "saveClicked()"
+          type="button"
+          label="Save"
+          (click)="addTransaction()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</p-sidebar>
